@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Results Portal | Academic Performance Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Announcement / Mode Banner -->
+  <div id="statusBanner" class="status-banner" style="display: none;">
+    <div class="banner-content">
+      <span class="banner-icon" id="bannerIcon">ℹ️</span>
+      <span class="banner-text" id="bannerText">Notice message here</span>
+    </div>
+    <button class="banner-close-btn" id="bannerCloseBtn" aria-label="Close Banner">&times;</button>
+  </div>
+
+  <div class="app-container">
+    
+    <!-- Portal Header -->
+    <header class="portal-header">
+      <div class="header-brand">
+        <div class="logo-container">
+          <svg class="portal-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="header-titles">
+          <h1 class="portal-title">Student Results Portal</h1>
+          <p class="portal-subtitle">Academic Performance Management System</p>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <div class="meta-badge academic-year-badge">
+          <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span>Academic Year: <strong>2024–2025</strong></span>
+        </div>
+        <div class="meta-badge live-status-badge" id="apiStatusBadge">
+          <span class="status-dot"></span>
+          <span id="apiStatusText">Initializing...</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard Statistics Cards -->
+    <section class="stats-grid" aria-label="Academic Performance Summary">
+      
+      <!-- Card 1: Total Students -->
+      <div class="stat-card stat-students">
+        <div class="stat-icon-wrapper">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="stat-details">
+          <span class="stat-label">Total Students</span>
+          <div class="stat-value-container">
+            <h2 class="stat-value" id="statTotalStudents">--</h2>
+          </div>
+          <span class="stat-trend">Enrolled Candidates</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Average 10th Marks -->
+      <div class="stat-card stat-10th">
+        <div class="stat-icon-wrapper">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <div class="stat-details">
+          <span class="stat-label">Average 10th Percentage</span>
+          <div class="stat-value-container">
+            <h2 class="stat-value" id="statAvg10th">--</h2>
+            <span class="stat-unit">%</span>
+          </div>
+          <span class="stat-trend">Secondary School Record</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Average 12th Marks -->
+      <div class="stat-card stat-12th">
+        <div class="stat-icon-wrapper">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="7"/>
+            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+          </svg>
+        </div>
+        <div class="stat-details">
+          <span class="stat-label">Average 12th Percentage</span>
+          <div class="stat-value-container">
+            <h2 class="stat-value" id="statAvg12th">--</h2>
+            <span class="stat-unit">%</span>
+          </div>
+          <span class="stat-trend">Higher Secondary Record</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Average Semester 2 SGPA -->
+      <div class="stat-card stat-sem2">
+        <div class="stat-icon-wrapper">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <div class="stat-details">
+          <span class="stat-label">Average Semester 2 SGPA</span>
+          <div class="stat-value-container">
+            <h2 class="stat-value" id="statAvgSem2">--</h2>
+            <span class="stat-unit">/ 10</span>
+          </div>
+          <span class="stat-trend">Current Collegiate Standing</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Main Content Area: Data Table & Interactive Controls -->
+    <main class="content-panel">
+
+      <!-- Action & Filter Toolbar -->
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input 
+              type="text" 
+              id="searchInput" 
+              class="search-input" 
+              placeholder="Search by Roll Number or Student Name..."
+              autocomplete="off"
+            />
+            <button id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search" style="display: none;">&times;</button>
+          </div>
+        </div>
+
+        <div class="toolbar-right">
+          <!-- Quick Sorting Selector for Mobile/Convenience -->
+          <div class="sort-dropdown-wrapper">
+            <label for="sortSelector" class="sort-label">Sort by:</label>
+            <select id="sortSelector" class="sort-select">
+              <option value="srNo-asc">Default Order (Sr No)</option>
+              <option value="rollNo-asc">Roll No (Ascending)</option>
+              <option value="rollNo-desc">Roll No (Descending)</option>
+              <option value="name-asc">Student Name (A to Z)</option>
+              <option value="name-desc">Student Name (Z to A)</option>
+              <option value="tenth-desc">10th Marks (Highest first)</option>
+              <option value="tenth-asc">10th Marks (Lowest first)</option>
+              <option value="twelfth-desc">12th Marks (Highest first)</option>
+              <option value="twelfth-asc">12th Marks (Lowest first)</option>
+              <option value="sem1-desc">Sem 1 SGPA (Highest first)</option>
+              <option value="sem1-asc">Sem 1 SGPA (Lowest first)</option>
+              <option value="sem2-desc">Sem 2 SGPA (Highest first)</option>
+              <option value="sem2-asc">Sem 2 SGPA (Lowest first)</option>
+            </select>
+          </div>
+
+          <!-- Refresh Data Button -->
+          <button id="refreshBtn" class="btn btn-primary" title="Refresh student records from Google Sheets">
+            <svg class="btn-icon" id="refreshIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"/>
+              <polyline points="1 20 1 14 7 14"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </svg>
+            <span>Refresh Data</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Table Header Meta Information Bar -->
+      <div class="table-info-bar">
+        <div class="records-counter" id="recordsCounter">
+          Showing <span id="displayedCount">0</span> of <span id="totalCount">0</span> records
+        </div>
+        <div class="last-sync-time" id="lastSyncTime">
+          Last updated: Just now
+        </div>
+      </div>
+
+      <!-- Responsive Table Container -->
+      <div class="table-responsive-wrapper">
+        <table class="students-table" id="studentsTable">
+          <thead>
+            <tr>
+              <th data-column="srNo" class="sortable-th">
+                <div class="th-content">
+                  <span>Sr No</span>
+                  <span class="sort-indicator" data-for="srNo">↕</span>
+                </div>
+              </th>
+              <th data-column="rollNo" class="sortable-th">
+                <div class="th-content">
+                  <span>Roll No</span>
+                  <span class="sort-indicator" data-for="rollNo">↕</span>
+                </div>
+              </th>
+              <th data-column="name" class="sortable-th">
+                <div class="th-content">
+                  <span>Student Name</span>
+                  <span class="sort-indicator" data-for="name">↕</span>
+                </div>
+              </th>
+              <th data-column="tenth" class="sortable-th numeric-col">
+                <div class="th-content justify-end">
+                  <span>10th (%)</span>
+                  <span class="sort-indicator" data-for="tenth">↕</span>
+                </div>
+              </th>
+              <th data-column="twelfth" class="sortable-th numeric-col">
+                <div class="th-content justify-end">
+                  <span>12th (%)</span>
+                  <span class="sort-indicator" data-for="twelfth">↕</span>
+                </div>
+              </th>
+              <th data-column="sem1" class="sortable-th numeric-col">
+                <div class="th-content justify-end">
+                  <span>Sem 1 (SGPA)</span>
+                  <span class="sort-indicator" data-for="sem1">↕</span>
+                </div>
+              </th>
+              <th data-column="sem2" class="sortable-th numeric-col">
+                <div class="th-content justify-end">
+                  <span>Sem 2 (SGPA)</span>
+                  <span class="sort-indicator" data-for="sem2">↕</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="studentsTableBody">
+            <!-- Dynamically populated via script.js -->
+          </tbody>
+        </table>
+
+        <!-- Loading State Skeleton -->
+        <div id="tableLoading" class="table-state loading-state" style="display: none;">
+          <div class="spinner"></div>
+          <p class="state-message">Fetching academic records from Google Sheets API...</p>
+        </div>
+
+        <!-- Empty Results State -->
+        <div id="emptyState" class="table-state empty-state" style="display: none;">
+          <div class="empty-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              <line x1="8" y1="11" x2="14" y2="11"/>
+            </svg>
+          </div>
+          <h3 class="state-title">No Students Found</h3>
+          <p class="state-description" id="emptyStateDesc">No records match your search criteria. Try checking for typos or searching by another roll number or name.</p>
+          <button id="resetSearchBtn" class="btn btn-secondary">Clear Search Filter</button>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="table-state error-state" style="display: none;">
+          <div class="error-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <h3 class="state-title">Unable to Connect to Google Sheets</h3>
+          <p class="state-description" id="errorMessage">Please ensure your Google Apps Script Web App URL is published with access set to "Anyone" and pasted in script.js.</p>
+          <div class="state-actions">
+            <button id="retryBtn" class="btn btn-primary">Try Again</button>
+            <button id="fallbackBtn" class="btn btn-secondary">Load Sample Records</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Tips & Keyboard Shortcuts Footer Note -->
+      <div class="table-footer-notes">
+        <span class="hint-text">💡 <strong>Tip:</strong> Click on any table column header to sort ascending or descending. Search operates instantly across roll numbers and names.</span>
+      </div>
+
+    </main>
+
+    <!-- Portal Footer -->
+    <footer class="portal-footer">
+      <div class="footer-content">
+        <p class="copyright">&copy; Academic Performance Management System &bull; DLA Unit 6 Activity 6</p>
+        <p class="tech-stack-info">Built with Vanilla HTML5, CSS3, JavaScript &amp; Google Apps Script JSON API</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
